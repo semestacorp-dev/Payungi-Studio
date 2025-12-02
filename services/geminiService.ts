@@ -1,5 +1,6 @@
 
 
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -60,7 +61,7 @@ const handleApiResponse = (response: GenerateContentResponse): string => {
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
 const model = 'gemini-2.5-flash-image';
 
-export type GenerationMode = 'Personal' | 'Couple' | 'Family' | 'Jomblo';
+export type GenerationMode = 'Personal' | 'Couple' | 'Family' | 'Jomblo' | 'Gentleman';
 
 export const generateModelImage = async (userImage: File, mode: GenerationMode = 'Family'): Promise<string> => {
     const userImagePart = await fileToPart(userImage);
@@ -86,6 +87,14 @@ export const generateModelImage = async (userImage: File, mode: GenerationMode =
         4.  **Style:** Photorealistic, high-quality.
         5.  **Background:** Clean, neutral studio backdrop.
         6.  **Output:** Return ONLY the final image.`;
+    } else if (mode === 'Gentleman') {
+        prompt = `You are an expert men's fashion stylist. Transform the person in this image into a confident, successful gentleman wearing a stylish 'Daily Option Suit' (modern business casual: fitted blazer, open-collar shirt, tailored trousers). 
+        **Instructions:**
+        1. **Look:** The subject should look polished, professional, and charismatic (the 'Enhanced Man' look).
+        2. **Outfit:** Wear a high-quality, well-fitted daily suit (Navy or Charcoal Blazer, crisp shirt, matching or complementary chinos). No tie, slightly relaxed but sharp.
+        3. **Identity:** Strictly preserve the person's face and body structure.
+        4. **Background:** Professional high-end studio.
+        5. **Output:** Return ONLY the final image.`;
     } else {
         // Family
         prompt = `You are an expert family photographer AI. Transform the family group in this image into a professional studio family portrait.
@@ -147,6 +156,14 @@ export const generateVirtualTryOnImage = async (modelImageUrl: string, garmentIm
         2. **Fit & Anatomy:** Ensure the swimwear fits the person's body naturally. Maintain accurate body anatomy and skin tone for exposed areas, blending them seamlessly with the face and limbs.
         3. **Respectful Realism:** The image must be tasteful, photorealistic, and suitable for a fashion catalog.
         4. **Identity:** Strictly preserve the person's face, hair, and overall body structure.
+        5. **Output:** Return ONLY the final image.`;
+    } else if (garmentCategory === 'Suits') {
+        prompt = `You are an expert menswear stylist. The user wants to see the person wearing this specific suit (Daily Option Suit).
+        **Instructions:**
+        1. **Full Outfit Replacement:** Replace the person's current outfit completely with the suit/outfit shown in the 'garment image'.
+        2. **Fit & Tailoring:** Ensure the suit fits the person's body perfectly (bespoke look, modern fit).
+        3. **Style:** Professional, sharp, and confident.
+        4. **Identity:** Strictly preserve the person's face and body structure.
         5. **Output:** Return ONLY the final image.`;
     } else {
         // Default replacement logic for Tops, Bottoms, Dresses, etc.

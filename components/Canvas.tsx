@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import React, { useState, useEffect, useRef } from 'react';
-import { RotateCcwIcon, ChevronLeftIcon, ChevronRightIcon, ImageIcon, PaletteIcon, LightbulbIcon, XIcon } from './icons';
+import { RotateCcwIcon, ChevronLeftIcon, ChevronRightIcon, ImageIcon, PaletteIcon, LightbulbIcon, XIcon, UploadCloudIcon } from './icons';
 import Spinner from './Spinner';
 import { AnimatePresence, motion } from 'framer-motion';
 import { playSound } from '../lib/soundEffects';
@@ -44,6 +44,7 @@ const Canvas: React.FC<CanvasProps> = ({ displayImageUrl, onStartOver, isLoading
   const [studioColor, setStudioColor] = useState(STUDIO_COLORS[0]);
   const [lightingEffect, setLightingEffect] = useState(LIGHTING_EFFECTS[0]);
   const [showStudioControls, setShowStudioControls] = useState(false);
+  const [customBackground, setCustomBackground] = useState<string | null>(null);
   
   const handlePreviousPose = () => {
     // ... (logic reused)
@@ -90,6 +91,15 @@ const Canvas: React.FC<CanvasProps> = ({ displayImageUrl, onStartOver, isLoading
     }
   };
 
+  const handleBackgroundUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+        playSound('click');
+        const file = e.target.files[0];
+        const url = URL.createObjectURL(file);
+        setCustomBackground(url);
+    }
+  };
+
   // Keyboard Navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -114,17 +124,31 @@ const Canvas: React.FC<CanvasProps> = ({ displayImageUrl, onStartOver, isLoading
         {/* STUDIO BACKGROUND LAYERS */}
         {/* ========================================================= */}
         <div className="absolute inset-0 z-0 transition-colors duration-700 ease-in-out" style={{ backgroundColor: studioColor.value }}>
+            {/* Custom Background Image */}
+            <AnimatePresence>
+                {customBackground && (
+                     <motion.img 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        src={customBackground} 
+                        alt="Custom Backdrop" 
+                        className="absolute inset-0 w-full h-full object-cover z-0" 
+                    />
+                )}
+            </AnimatePresence>
+
             {/* 1. Vignette / Floor Horizon simulation */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none z-0" />
             
             {/* 2. Noise Texture for Realism */}
-            <div className="absolute inset-0 opacity-[0.08] pointer-events-none mix-blend-overlay"
+            <div className="absolute inset-0 opacity-[0.08] pointer-events-none mix-blend-overlay z-0"
                  style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")` }}
             />
 
             {/* 3. Dynamic Lighting Layer */}
             <div 
-                className="absolute inset-0 pointer-events-none transition-all duration-1000 ease-in-out mix-blend-screen"
+                className="absolute inset-0 pointer-events-none transition-all duration-1000 ease-in-out mix-blend-screen z-0"
                 style={{ background: lightingEffect.css }}
             />
         </div>
@@ -220,16 +244,25 @@ const Canvas: React.FC<CanvasProps> = ({ displayImageUrl, onStartOver, isLoading
                             {/* Backdrop Colors */}
                             <div className="mb-4">
                                 <span className="text-[9px] uppercase text-white/40 mb-2 block font-bold">Backdrop</span>
-                                <div className="flex gap-2 flex-wrap">
+                                <div className="flex gap-2 flex-wrap items-center">
                                     {STUDIO_COLORS.map(c => (
                                         <button 
                                             key={c.name}
-                                            onClick={() => { playSound('click'); setStudioColor(c); }}
-                                            className={`w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 ${studioColor.name === c.name ? 'border-white scale-110 shadow-glow' : 'border-transparent opacity-70'}`}
+                                            onClick={() => { 
+                                                playSound('click'); 
+                                                setStudioColor(c); 
+                                                setCustomBackground(null); // Clear custom bg
+                                            }}
+                                            className={`w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 ${studioColor.name === c.name && !customBackground ? 'border-white scale-110 shadow-glow' : 'border-transparent opacity-70'}`}
                                             style={{ backgroundColor: c.value }}
                                             title={c.name}
                                         />
                                     ))}
+                                    <div className="w-px h-6 bg-white/10 mx-1"></div>
+                                    <label className={`w-6 h-6 rounded-full border-2 flex items-center justify-center cursor-pointer transition-transform hover:scale-110 ${customBackground ? 'border-white bg-white/20 scale-110 shadow-glow' : 'border-white/30 bg-white/10 hover:border-white'}`} title="Upload Custom Background">
+                                        <UploadCloudIcon className="w-3 h-3 text-white" />
+                                        <input type="file" accept="image/*" className="hidden" onChange={handleBackgroundUpload} />
+                                    </label>
                                 </div>
                             </div>
 

@@ -1,4 +1,6 @@
 
+
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -139,8 +141,9 @@ const StartScreen: React.FC<StartScreenProps> = ({ onModelFinalized }) => {
                         Studio fashion AI paling hits di Pasar Yosomulyo Pelangi. Coba gaya baru, mix & match sesuka hati, dan temukan versi paling kece dari dirimu!
                      </p>
 
-                     <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-black w-full max-w-xl">
+                     <div className="grid grid-cols-2 md:grid-cols-5 gap-0 border border-black w-full max-w-2xl">
                         {renderModeButton('Personal', 'Sendirian', 'SOLO')}
+                        {renderModeButton('Gentleman', 'Pria Mapan', 'BOSS')}
                         {renderModeButton('Jomblo', 'Halu Pacar', 'DUO')}
                         {renderModeButton('Couple', 'Couple-an', 'LOVE')}
                         {renderModeButton('Family', 'Sekeluarga', 'CLAN')}

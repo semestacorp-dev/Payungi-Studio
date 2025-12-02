@@ -409,7 +409,11 @@ const App: React.FC = () => {
             
             {/* Header */}
             <header className="h-16 bg-white/80 dark:bg-black/80 backdrop-blur-md border border-white/40 dark:border-white/10 shadow-sm rounded-2xl flex-shrink-0 z-30 overflow-hidden px-4 transition-colors duration-300">
-                <Header theme={theme} onToggleTheme={toggleTheme} />
+                <Header 
+                    theme={theme} 
+                    onToggleTheme={toggleTheme} 
+                    onSettingsClick={() => { playSound('click'); setActiveTab('settings'); }}
+                />
             </header>
 
             {/* Main Content Area */}
@@ -486,6 +490,7 @@ const App: React.FC = () => {
                                                 activeGarmentIds={activeGarmentIds}
                                                 isLoading={isLoading}
                                                 wardrobe={wardrobe}
+                                                onOpenDetails={(item) => { playSound('click'); setSelectedItemForDetails(item); }}
                                             />
                                         </div>
                                     </>

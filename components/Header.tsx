@@ -4,14 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import React from 'react';
-import { SunIcon, MoonIcon } from './icons';
+import { SunIcon, MoonIcon, CameraIcon, SettingsIcon } from './icons';
 
 interface HeaderProps {
   theme?: 'light' | 'dark';
   onToggleTheme?: () => void;
+  onSettingsClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ theme = 'light', onToggleTheme }) => {
+const Header: React.FC<HeaderProps> = ({ theme = 'light', onToggleTheme, onSettingsClick }) => {
   return (
     <div className="w-full h-full flex items-center justify-between px-2 relative">
         {/* Left: Issue Details */}
@@ -38,6 +39,23 @@ const Header: React.FC<HeaderProps> = ({ theme = 'light', onToggleTheme }) => {
                 <span className="type-subhead text-black dark:text-white border border-black dark:border-white px-2 py-1 rounded-sm">
                     ID
                 </span>
+
+                <button 
+                    className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-black dark:text-white transition-colors"
+                    title="Camera"
+                >
+                    <CameraIcon className="w-4 h-4" />
+                </button>
+
+                {onSettingsClick && (
+                    <button 
+                        onClick={onSettingsClick}
+                        className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-black dark:text-white transition-colors"
+                        title="Settings"
+                    >
+                        <SettingsIcon className="w-4 h-4" />
+                    </button>
+                )}
 
                 {onToggleTheme && (
                     <button 

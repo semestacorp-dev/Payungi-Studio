@@ -5,7 +5,7 @@
 */
 import React, { useState, useMemo } from 'react';
 import type { WardrobeItem, WardrobeCategory } from '../types';
-import { UploadCloudIcon, CheckCircleIcon } from './icons';
+import { UploadCloudIcon, CheckCircleIcon, CubeIcon } from './icons';
 import { urlToFile } from '../lib/utils';
 import { playSound } from '../lib/soundEffects';
 
@@ -14,11 +14,13 @@ interface WardrobePanelProps {
   activeGarmentIds: string[];
   isLoading: boolean;
   wardrobe: WardrobeItem[];
+  onOpenDetails: (item: WardrobeItem) => void;
 }
 
 // Define the available filters mixing Categories and Styles
 const FILTERS = [
     'All', 
+    'Suits',
     'Party', 
     'Streetwear', 
     'Vintage', 
@@ -34,7 +36,7 @@ const FILTERS = [
     'Custom'
 ];
 
-const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGarmentIds, isLoading, wardrobe }) => {
+const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGarmentIds, isLoading, wardrobe, onOpenDetails }) => {
     const [activeFilter, setActiveFilter] = useState<string>('All');
 
     const handleFilterChange = (filter: string) => {
@@ -83,6 +85,7 @@ const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGa
     // Helper to render label with icon
     const getLabel = (filter: string) => {
         switch(filter) {
+            case 'Suits': return '🕴️ Daily Suit';
             case 'Party': return '🎉 Party';
             case 'Streetwear': return '👟 Streetwear';
             case 'Vintage': return '📻 Vintage';
@@ -135,7 +138,7 @@ const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGa
                 {filteredWardrobe.map((item) => {
                     const isActive = activeGarmentIds.includes(item.id);
                     return (
-                        <div key={item.id} className="group flex flex-col">
+                        <div key={item.id} className="group flex flex-col relative">
                             <button
                                 onClick={() => handleGarmentClick(item)}
                                 disabled={isLoading || isActive}
@@ -146,15 +149,36 @@ const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGa
                                 <img src={item.url} alt={item.name} className={`w-full h-full object-cover transition-transform duration-500 ${isActive ? '' : 'group-hover:scale-105'} ${isActive ? 'grayscale' : ''}`} />
                                 
                                 {isActive && (
-                                    <div className="absolute top-2 right-2 bg-black text-white p-1 rounded-full">
+                                    <div className="absolute top-2 right-2 bg-black text-white p-1 rounded-full z-10">
                                         <CheckCircleIcon className="w-4 h-4" />
                                     </div>
                                 )}
                             </button>
+                            
+                            {item.model3dUrl && (
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onOpenDetails(item);
+                                    }}
+                                    className="absolute top-2 left-2 bg-white/90 text-black p-1.5 rounded-full shadow-sm hover:scale-110 transition-transform z-10 border border-gray-200"
+                                    title="View 3D Model"
+                                >
+                                    <CubeIcon className="w-3.5 h-3.5 group-hover:animate-[spin_3s_linear_infinite]" />
+                                </button>
+                            )}
+
                             <div className="mt-2 flex justify-between items-start">
-                                <div className="flex flex-col items-start">
-                                    <span className="font-sans text-[10px] font-bold uppercase leading-tight">{item.name}</span>
-                                    <span className="font-serif italic text-xs text-gray-500">{item.style || item.category}</span>
+                                <div className="flex flex-col min-w-0">
+                                    <button 
+                                        onClick={() => onOpenDetails(item)}
+                                        className="font-bold text-xs truncate hover:underline text-left"
+                                    >
+                                        {item.name}
+                                    </button>
+                                    <span className="text-[9px] text-gray-500 uppercase tracking-wide">
+                                        {item.category}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +186,7 @@ const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGa
                 })}
             </div>
              {filteredWardrobe.length === 0 && (
-                <div className="text-center py-20 type-subhead text-gray-400">LEMARI KOSONG</div>
+                <p className="text-center text-sm text-gray-500 mt-4">Gak ada baju yang cocok nih.</p>
             )}
         </div>
     </div>

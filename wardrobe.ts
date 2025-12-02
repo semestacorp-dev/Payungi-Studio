@@ -45,6 +45,15 @@ export const defaultWardrobe: WardrobeItem[] = [
     style: 'Formal'
   },
   
+  // --- SUITS / DAILY OPTION ---
+  {
+    id: 'man-daily-suit',
+    name: 'Daily Power Suit',
+    url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400',
+    category: 'Suits',
+    style: 'Formal'
+  },
+
   // --- EXISTING ITEMS ---
   {
     id: 'adat-1',
@@ -461,32 +470,5 @@ export const defaultWardrobe: WardrobeItem[] = [
   },
   { id: 'dance-21', name: 'Dynamic Move 21', url: 'https://images.unsplash.com/photo-1535525153412-5a42439a210d?w=400', category: 'Tops', style: 'Sport' },
   { id: 'dance-22', name: 'Ballet Position 22', url: 'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-23', name: 'Dynamic Move 23', url: 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=400', category: 'Dresses', style: 'Sport' },
-  { id: 'dance-24', name: 'Ballet Position 24', url: 'https://images.unsplash.com/photo-1544297787-8e6e580d8856?w=400', category: 'Dresses', style: 'Sport' },
-  { id: 'dance-25', name: 'Dynamic Move 25', url: 'https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?w=400', category: 'Outerwear', style: 'Sport' },
-  { id: 'dance-26', name: 'Ballet Position 26', url: 'https://images.unsplash.com/photo-1516570695666-6b2170364802?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-27', name: 'Dynamic Move 27', url: 'https://images.unsplash.com/photo-1551286948-262e3d30b927?w=400', category: 'Tops', style: 'Sport' },
-  { id: 'dance-28', name: 'Ballet Position 28', url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-29', name: 'Dynamic Move 29', url: 'https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=400', category: 'Tops', style: 'Sport' },
-  { id: 'dance-30', name: 'Ballet Position 30', url: 'https://images.unsplash.com/photo-1572911634567-96538b4c0926?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-31', name: 'Dynamic Move 31', url: 'https://images.unsplash.com/photo-1535525153412-5a42439a210d?w=400', category: 'Tops', style: 'Sport' },
-  { id: 'dance-32', name: 'Ballet Position 32', url: 'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-33', name: 'Dynamic Move 33', url: 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=400', category: 'Dresses', style: 'Sport' },
-  { id: 'dance-34', name: 'Ballet Position 34', url: 'https://images.unsplash.com/photo-1544297787-8e6e580d8856?w=400', category: 'Dresses', style: 'Sport' },
-  { id: 'dance-35', name: 'Dynamic Move 35', url: 'https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?w=400', category: 'Outerwear', style: 'Sport' },
-  { id: 'dance-36', name: 'Ballet Position 36', url: 'https://images.unsplash.com/photo-1516570695666-6b2170364802?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-37', name: 'Dynamic Move 37', url: 'https://images.unsplash.com/photo-1551286948-262e3d30b927?w=400', category: 'Tops', style: 'Sport' },
-  { id: 'dance-38', name: 'Ballet Position 38', url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-39', name: 'Dynamic Move 39', url: 'https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=400', category: 'Tops', style: 'Sport' },
-  { id: 'dance-40', name: 'Ballet Position 40', url: 'https://images.unsplash.com/photo-1572911634567-96538b4c0926?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-41', name: 'Dynamic Move 41', url: 'https://images.unsplash.com/photo-1535525153412-5a42439a210d?w=400', category: 'Tops', style: 'Sport' },
-  { id: 'dance-42', name: 'Ballet Position 42', url: 'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-43', name: 'Dynamic Move 43', url: 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=400', category: 'Dresses', style: 'Sport' },
-  { id: 'dance-44', name: 'Ballet Position 44', url: 'https://images.unsplash.com/photo-1544297787-8e6e580d8856?w=400', category: 'Dresses', style: 'Sport' },
-  { id: 'dance-45', name: 'Dynamic Move 45', url: 'https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?w=400', category: 'Outerwear', style: 'Sport' },
-  { id: 'dance-46', name: 'Ballet Position 46', url: 'https://images.unsplash.com/photo-1516570695666-6b2170364802?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-47', name: 'Dynamic Move 47', url: 'https://images.unsplash.com/photo-1551286948-262e3d30b927?w=400', category: 'Tops', style: 'Sport' },
-  { id: 'dance-48', name: 'Ballet Position 48', url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400', category: 'Dresses', style: 'Formal' },
-  { id: 'dance-49', name: 'Dynamic Move 49', url: 'https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=400', category: 'Tops', style: 'Sport' },
-  { id: 'dance-50', name: 'Ballet Position 50', url: 'https://images.unsplash.com/photo-1572911634567-96538b4c0926?w=400', category: 'Dresses', style: 'Formal' }
+  { id: 'dance-23', name: 'Dynamic Move 23', url: 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=400', category: 'Tops', style: 'Sport' }
 ];
