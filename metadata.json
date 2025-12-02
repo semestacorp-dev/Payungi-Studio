@@ -1,0 +1,8 @@
+{
+  "name": "PAYUNGI STUDIO",
+  "description": "Abadikan momen ceria keluarga di Pasar Yosomulyo Pelangi (Payungi). Kreasikan gaya unikmu dengan sentuhan AI.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "prompt": ""
+}
